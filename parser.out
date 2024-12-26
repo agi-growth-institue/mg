@@ -1,0 +1,180 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> log
+Rule 1     log -> entries
+Rule 2     entries -> entry
+Rule 3     entries -> entry entries
+Rule 4     entry -> DATE exercises
+Rule 5     exercises -> exercise
+Rule 6     exercises -> exercise exercises
+Rule 7     exercise -> EXERCISE NUMBER sets
+Rule 8     sets -> NUMBER
+Rule 9     sets -> NUMBER COMMA sets
+
+Terminals, with rules where they appear
+
+COMMA                : 9
+DATE                 : 4
+EXERCISE             : 7
+NUMBER               : 7 8 9
+error                : 
+
+Nonterminals, with rules where they appear
+
+entries              : 1 3
+entry                : 2 3
+exercise             : 5 6
+exercises            : 4 6
+log                  : 0
+sets                 : 7 9
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . log
+    (1) log -> . entries
+    (2) entries -> . entry
+    (3) entries -> . entry entries
+    (4) entry -> . DATE exercises
+
+    DATE            shift and go to state 4
+
+    log                            shift and go to state 1
+    entries                        shift and go to state 2
+    entry                          shift and go to state 3
+
+state 1
+
+    (0) S' -> log .
+
+
+
+state 2
+
+    (1) log -> entries .
+
+    $end            reduce using rule 1 (log -> entries .)
+
+
+state 3
+
+    (2) entries -> entry .
+    (3) entries -> entry . entries
+    (2) entries -> . entry
+    (3) entries -> . entry entries
+    (4) entry -> . DATE exercises
+
+    $end            reduce using rule 2 (entries -> entry .)
+    DATE            shift and go to state 4
+
+    entry                          shift and go to state 3
+    entries                        shift and go to state 5
+
+state 4
+
+    (4) entry -> DATE . exercises
+    (5) exercises -> . exercise
+    (6) exercises -> . exercise exercises
+    (7) exercise -> . EXERCISE NUMBER sets
+
+    EXERCISE        shift and go to state 8
+
+    exercises                      shift and go to state 6
+    exercise                       shift and go to state 7
+
+state 5
+
+    (3) entries -> entry entries .
+
+    $end            reduce using rule 3 (entries -> entry entries .)
+
+
+state 6
+
+    (4) entry -> DATE exercises .
+
+    DATE            reduce using rule 4 (entry -> DATE exercises .)
+    $end            reduce using rule 4 (entry -> DATE exercises .)
+
+
+state 7
+
+    (5) exercises -> exercise .
+    (6) exercises -> exercise . exercises
+    (5) exercises -> . exercise
+    (6) exercises -> . exercise exercises
+    (7) exercise -> . EXERCISE NUMBER sets
+
+    DATE            reduce using rule 5 (exercises -> exercise .)
+    $end            reduce using rule 5 (exercises -> exercise .)
+    EXERCISE        shift and go to state 8
+
+    exercise                       shift and go to state 7
+    exercises                      shift and go to state 9
+
+state 8
+
+    (7) exercise -> EXERCISE . NUMBER sets
+
+    NUMBER          shift and go to state 10
+
+
+state 9
+
+    (6) exercises -> exercise exercises .
+
+    DATE            reduce using rule 6 (exercises -> exercise exercises .)
+    $end            reduce using rule 6 (exercises -> exercise exercises .)
+
+
+state 10
+
+    (7) exercise -> EXERCISE NUMBER . sets
+    (8) sets -> . NUMBER
+    (9) sets -> . NUMBER COMMA sets
+
+    NUMBER          shift and go to state 11
+
+    sets                           shift and go to state 12
+
+state 11
+
+    (8) sets -> NUMBER .
+    (9) sets -> NUMBER . COMMA sets
+
+    EXERCISE        reduce using rule 8 (sets -> NUMBER .)
+    DATE            reduce using rule 8 (sets -> NUMBER .)
+    $end            reduce using rule 8 (sets -> NUMBER .)
+    COMMA           shift and go to state 13
+
+
+state 12
+
+    (7) exercise -> EXERCISE NUMBER sets .
+
+    EXERCISE        reduce using rule 7 (exercise -> EXERCISE NUMBER sets .)
+    DATE            reduce using rule 7 (exercise -> EXERCISE NUMBER sets .)
+    $end            reduce using rule 7 (exercise -> EXERCISE NUMBER sets .)
+
+
+state 13
+
+    (9) sets -> NUMBER COMMA . sets
+    (8) sets -> . NUMBER
+    (9) sets -> . NUMBER COMMA sets
+
+    NUMBER          shift and go to state 11
+
+    sets                           shift and go to state 14
+
+state 14
+
+    (9) sets -> NUMBER COMMA sets .
+
+    EXERCISE        reduce using rule 9 (sets -> NUMBER COMMA sets .)
+    DATE            reduce using rule 9 (sets -> NUMBER COMMA sets .)
+    $end            reduce using rule 9 (sets -> NUMBER COMMA sets .)
+

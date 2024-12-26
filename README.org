@@ -1,0 +1,46 @@
+* Massive Growth: Compile your gains
+
+Massive Growth parses and compiles workout data to assist in tracking performance and progress.
+
+** Sample Data
+
+Here is the format of the workout data:
+
+#+begin_src plaintext
+2024-11-25
+S 5 5 8,8,8
+Ht 70 12,12,12
+Pu 8,6,6
+Incbp 16 12, 18 12,12
+
+2024-12-10
+Bp 50 8,8,8
+Abs 5 18,10,10
+Pu 6,6,6
+Flys 12 8,8,8
+
+Bp 50 9, 50 9, 60 8, 12, 4
+Abs 5 18,12
+Pu 7,7,6, 6, 8
+Dølle 90 8,8,8
+#+end_src
+
+** Grammar
+
+The data format can be broken down using the following grammar:
+
+#+begin_src ebnf
+<workout> ::= <DATE> <exercises>
+<exercises> ::= <exercise> <exercises> | <exercise>
+<exercise> ::= <EXERCISE> <sets>
+<sets> ::= <weight number> <reps>
+<weight number> ::= <NUMBER> | ε
+<reps> ::= <NUMBER> <COMMA> <reps> | <NUMBER>
+#+end_src
+
+The =<weight number>= is optional, and represents the weight or intensity.
+
+** Parser Implementation
+
+
+Happy lifting!
